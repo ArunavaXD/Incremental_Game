@@ -7,13 +7,15 @@ extra = 0
 extraCost = 1
 coinsPerSecond = 1
 
-buttonWidth, buttonHeight = 100, 50
+buttonWidth, buttonHeight = 150, 75
 buttons = {}
 
 function love.load()
 
     love.window.setTitle("Incremental Game")
     love.window.setMode(800, 600)
+
+    font20 = love.graphics.newFont(20)
 
     buySound = love.audio.newSource("sounds/buttonClick.wav", "static")
     coinSound = love.audio.newSource("sounds/coinSound.wav", "static")
@@ -34,7 +36,7 @@ function love.load()
         if coins >= multiplierCost then
             coins = coins - multiplierCost
             multiplier = multiplier + 0.1
-            multiplierCost = multiplierCost * 1.5
+            multiplierCost = multiplierCost * 1.1
             buySound:play()
         end
     end)
@@ -43,7 +45,7 @@ function love.load()
         if multiplier >= extraCost then
             multiplier = multiplier - extraCost
             extra = extra + 0.1
-            extraCost = extraCost * 1.5
+            extraCost = extraCost * 1.1
             buySound:play()
         end
     end)
@@ -61,12 +63,14 @@ function love.update(dt)
 end
 
 function love.draw()
-    
+
+    love.graphics.setFont(font20)
+
     love.graphics.setColor(1, 1, 1)
 
-    love.graphics.print("Coins: " .. string.format("%.2f", coins), 20, 20)
-    love.graphics.print("Multiplier: " .. string.format("%.2f", multiplier), 20, 50)
-    love.graphics.print("Extra: " .. string.format("%.2f", extra), 20, 70)
+    love.graphics.print("Coins: " .. string.format("%.2f", coins), 20, 50)
+    love.graphics.print("Multiplier: " .. string.format("%.2f", multiplier), 20, 100)
+    love.graphics.print("Extra: " .. string.format("%.2f", extra), 20, 150)
     
     for _, button in ipairs(buttons) do
         love.graphics.setColor(0, 0, 0)
